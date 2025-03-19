@@ -76,7 +76,8 @@ class Router:
                 picked.append(self.registry.get(name))
                 seen.add(name)
 
-        for i in order:
+        # cast i to python int — numpy ints break the registry dict lookups
+        for i in (int(x) for x in order):
             tool = self._tools[i]
             if tool.name in self.config.never_route_out:
                 continue
