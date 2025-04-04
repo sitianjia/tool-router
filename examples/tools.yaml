@@ -1,0 +1,29 @@
+tools:
+  - name: weather_now
+    description: Get current weather for a city
+    examples: ["What's the weather in Beijing?", "Will it rain in Shanghai?"]
+    tags: [realtime, location]
+  - name: currency_convert
+    description: Convert between currencies at the current rate
+    examples: ["50 USD to CNY", "convert 100 euros to RMB"]
+    tags: [finance, realtime]
+  - name: sql_query
+    description: Run a SQL query against the analytics warehouse
+    examples: ["how many orders yesterday", "top 10 customers last month"]
+    tags: [data]
+  - name: send_email
+    description: Send an email to a recipient
+    tags: [comms, side_effect]
+  - name: file_search
+    description: Search the internal documentation index
+    examples: ["find docs about deployment"]
+    tags: [docs]
+  - name: schedule_meeting
+    description: Put a meeting on someone's calendar
+    tags: [comms, calendar]
+  - name: code_search
+    description: Search the company codebase by symbol or substring
+    tags: [code]
+  - name: jira_create_ticket
+    description: Open a new Jira ticket
+    tags: [comms, side_effect]
