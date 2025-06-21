@@ -42,13 +42,17 @@ class OpenAIEmbedder(BaseEmbedder):
         self.model = model
         self.dim = 1536 if "small" in model else 3072  # rough default
 
-    def embed(self, texts: list[str]) -> np.ndarray:
+    def embed(self, texts: list[str], batch_size: int = 64) -> np.ndarray:
         if not texts:
             return np.zeros((0, self.dim), dtype=np.float32)
-        resp = self.client.embeddings.create(model=self.model, input=texts)
-        arr = np.array([d.embedding for d in resp.data], dtype=np.float32)
-        self.dim = arr.shape[1]
-        return arr
+        # OpenAI servers cap per request; batch to be safe
+        out: list[np.ndarray] = []
+        for i in range(0, len(texts), batch_size):
+            chunk = texts[i: i + batch_size]
+            r = self.client.embeddings.create(model=self.model, input=chunk)
+            out.append(np.array([d.embedding for d in r.data], dtype=np.float32))
+            self.dim = out[-1].shape[1]
+        return np.concatenate(out, axis=0)
 
 
 _WORD = re.compile(r"\w+", re.UNICODE)
