@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
 authors = [{ name = "Ma Xiaoming" }]
-dependencies = ["numpy", "scikit-learn", "openai>=1.0", "pyyaml"]
+dependencies = ["numpy", "scikit-learn", "openai>=1.30", "pyyaml"]
 
 [tool.setuptools.packages.find]
 include = ["toolrouter*"]
