@@ -1,5 +1,5 @@
 """tool-router — pick the right K tools before they ever hit the LLM."""
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 from .registry import Tool, ToolRegistry
 from .router import Router
