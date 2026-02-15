@@ -107,6 +107,23 @@ class Router:
         (p / "tool_names.txt").write_text(
             "\n".join(t.name for t in self._tools))
 
+    def add_tool(self, tool: Tool) -> None:
+        """Add a tool at runtime — re-embeds only the new description."""
+        if tool.name in self.registry:
+            return
+        self.registry.add(tool)
+        v = self._normalize(self.embedder.embed([tool.routing_text()]))
+        self._tools.append(tool)
+        self._tool_vecs = np.concatenate([self._tool_vecs, v], axis=0)
+
+    def remove_tool(self, name: str) -> None:
+        idx = next((i for i, t in enumerate(self._tools) if t.name == name), -1)
+        if idx < 0:
+            return
+        self._tools.pop(idx)
+        self._tool_vecs = np.delete(self._tool_vecs, idx, axis=0)
+        del self.registry._by_name[name]
+
     @classmethod
     def load(cls, path: str | Path, registry: ToolRegistry,
              embedder: BaseEmbedder, config: Optional[RouterConfig] = None
