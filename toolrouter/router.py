@@ -39,7 +39,7 @@ class Router:
         self.embedder = embedder
         self.config = config or RouterConfig()
         self._tools: list[Tool] = registry.all()
-        # one-shot embedding of all tool descriptions
+        # one-shot embedding of every tool description
         self._tool_vecs = self._normalize(
             embedder.embed([t.routing_text() for t in self._tools])
         )
