@@ -45,7 +45,7 @@ from toolrouter.router import RouterConfig
 
 router.config = RouterConfig(
     k=5,
-    threshold=0.15,                       # drop very low-confidence picks
+    threshold=0.15,                       # drop very low-confidence picks (cosine; -1..1)
     tag_boost={"realtime": 0.05},         # nudge time-sensitive tools up
     always_include=["finish_task"],       # control-flow tools always shown
     never_route_out=["secret_tool"],      # never expose without manual opt-in
